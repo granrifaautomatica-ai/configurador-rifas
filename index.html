@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Configuración de Rifas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #0d140f;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background-color: rgba(13, 20, 15, 0.98);
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 0 2px #d4af37;
+            box-sizing: border-box;
+        }
+        h2 {
+            text-align: center;
+            color: #d4af37;
+            font-family: 'Impact', Arial, sans-serif;
+            letter-spacing: 1px;
+            margin-top: 0;
+        }
+        .seccion {
+            border-bottom: 1px solid #444;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .seccion-titulo {
+            font-size: 14px;
+            color: #d4af37;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        .campo {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            color: #cdcdcd;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], input[type="date"], textarea, select {
+            width: 100%;
+            padding: 11px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: #0a0e0b;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+        textarea {
+            resize: vertical;
+            height: 65px;
+            font-family: Arial, sans-serif;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135px, #f3ca52 0%, #b8860b 100%);
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.15s ease-in-out;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: linear-gradient(135px, #ffe699 0%, #d4af37 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(214, 175, 55, 0.2);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>⚙️ CONFIGURACIÓN DE LA RIFA</h2>
+    
+    <form id="formConfig">
+        <div class="seccion">
+            <div class="seccion-titulo">Identidad de la Rifa</div>
+            <div class="campo">
+                <label>Título de la Rifa:</label>
+                <input type="text" id="tituloRifa" required placeholder="Ej: GRAN RIFA EMBAJADORES">
+            </div>
+            <div class="campo">
+                <label>Descripción de la Rifa:</label>
+                <textarea id="descripcionRifa" required placeholder="Ej: Juega con las últimas dos cifras de la Lotería de Boyacá..."></textarea>
+            </div>
+        </div>
+
+        <div class="seccion">
+            <div class="seccion-titulo">Logística y Valores</div>
+            <div class="campo">
+                <label>Nombre del Encargado:</label>
+                <input type="text" id="encargado" required placeholder="Nombre completo">
+            </div>
+            <div class="campo">
+                <label>WhatsApp del Encargado:</label>
+                <input type="text" id="whatsapp" required placeholder="Ej: 573001234567">
+            </div>
+            <div class="campo">
+                <label>Fecha de Sorteo:</label>
+                <input type="date" id="fechaSorteo" required>
+            </div>
+            <div class="campo">
+                <label>Valor del Número:</label>
+                <input type="number" id="valorRifa" required placeholder="Ej: 25000">
+            </div>
+            <div class="campo">
+                <label>Medio de Pago:</label>
+                <input type="text" id="medioPago" required placeholder="Ej: Nequi / Daviplata: 3123456789">
+            </div>
+        </div>
+
+        <div class="seccion">
+            <div class="seccion-titulo">Reglas y Alertas Automáticas</div>
+            <div class="campo">
+                <label>¿Admite una sola participación por usuario?:</label>
+                <select id="unicaParticipacion">
+                    <option value="NO">NO (Permitir múltiples compras)</option>
+                    <option value="SI">SÍ (Restringir por teléfono/correo)</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label>Días previos a fecha límite para enviar recordatorios automáticos:</label>
+                <div class="grid-3">
+                    <div>
+                        <label style="font-size:11px; text-align:center; display:block; margin-bottom:3px;">Alerta 1</label>
+                        <input type="number" id="alerta1" min="1" max="30" required placeholder="Ej: 5" value="5">
+                    </div>
+                    <div>
+                        <label style="font-size:11px; text-align:center; display:block; margin-bottom:3px;">Alerta 2</label>
+                        <input type="number" id="alerta2" min="1" max="30" required placeholder="Ej: 3" value="3">
+                    </div>
+                    <div>
+                        <label style="font-size:11px; text-align:center; display:block; margin-bottom:3px;">Alerta 3</label>
+                        <input type="number" id="alerta3" min="1" max="30" required placeholder="Ej: 1" value="1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" id="btnGuardar">Guardar Configuración</button>
+    </form>
+</div>
+
+<script>
+    // URL DE TU SCRIPT DE GOOGLE (Reemplaza este enlace de ejemplo con tu URL de Apps Script real)
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwoOrW3FHOxVHcZ830gXapEagVe-PqqziuUz9gWTkXXCVAd0DnnkaREinRTRNNfuuKQCw/exec";
+
+    document.getElementById('formConfig').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btnGuardar');
+        const textoOriginal = btn.innerText;
+        btn.innerText = "Enviando datos...";
+        btn.disabled = true;
+
+        const datos = {
+            action: "actualizarConfiguracion",
+            encargado: document.getElementById('encargado').value,
+            fechaSorteo: document.getElementById('fechaSorteo').value,
+            valorRifa: document.getElementById('valorRifa').value,
+            medioPago: document.getElementById('medioPago').value,
+            whatsapp: document.getElementById('whatsapp').value,
+            alerta1: document.getElementById('alerta1').value,
+            alerta2: document.getElementById('alerta2').value,
+            alerta3: document.getElementById('alerta3').value,
+            unicaParticipacion: document.getElementById('unicaParticipacion').value,
+            tituloRifa: document.getElementById('tituloRifa').value,
+            descripcionRifa: document.getElementById('descripcionRifa').value
+        };
+
+        fetch(WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
+        })
+        .then(() => {
+            alert('¡Configuración enviada con éxito!\nLos datos se están aplicando en tu Google Sheet.');
+            btn.innerText = textoOriginal;
+            btn.disabled = false;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al conectar con el servidor.');
+            btn.innerText = textoOriginal;
+            btn.disabled = false;
+        });
+    });
+</script>
+
+</body>
+</html>
